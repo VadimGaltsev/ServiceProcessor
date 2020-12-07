@@ -1,0 +1,5 @@
+rootProject.name='My Application'
+include ':app'
+include ':codegenerator'
+include ':lib'
+include ':my_library'
