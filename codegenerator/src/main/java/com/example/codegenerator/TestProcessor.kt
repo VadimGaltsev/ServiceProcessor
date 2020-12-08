@@ -5,14 +5,12 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.TypeSpec
-import java.lang.Exception
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
-import javax.lang.model.element.*
-import javax.lang.model.type.TypeMirror
+import javax.lang.model.element.ElementKind
+import javax.lang.model.element.Name
+import javax.lang.model.element.TypeElement
 import javax.tools.Diagnostic
-import javax.tools.JavaFileManager
-import javax.tools.StandardLocation
 
 @SupportedAnnotationTypes("com.example.lib.RetrofitService")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -36,11 +34,6 @@ class TestProcessor : AbstractProcessor() {
             .getElementsAnnotatedWith(elements.first())
             .forEach {
                 try {
-                    val type = processingEnv.getTypeUtils().getWildcardType(
-                        processingEnv.getElementUtils().getTypeElement(
-                            ArrayList::class.java.getName()
-                        ).asType(), null
-                    )
                     val file = FileSpec.builder("", "${it.simpleName}Impl")
                         .addImport("okhttp3", listOf("Call", "Request", "OkHttpClient"))
 
