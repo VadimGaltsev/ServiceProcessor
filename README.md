@@ -1,2 +1,1 @@
-# AppsConfProcessor
-AppsConf Annotation Processor
+# ServiceProcessor
