@@ -1,10 +1,7 @@
 package com.example.codegenerator
 
 import com.example.codegenerator.TestProcessor.Companion.KAPT_KOTLIN_GENERATED_OPTION_NAME
-import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.CodeBlock
-import com.squareup.kotlinpoet.FileSpec
-import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.*
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.ElementKind
@@ -23,10 +20,27 @@ class TestProcessor : AbstractProcessor() {
     private val initClass = FileSpec.builder("", "Init")
         .addImport("com.example.lib", "ServiceHolder")
 
+    init {
+        val file = FileSpec.builder("", "MyFile")
+        val clazz = TypeSpec.classBuilder("MyClass")
+            .superclass(Number::class)
+        val func = FunSpec.builder("helloKotlin")
+            .addComment("MyFunction")
+        val body = CodeBlock.builder().add("""
+            println("MyFunction")
+        """.trimIndent())
+        """
+        """.trimIndent()
+        func.addCode(body.build())
+        clazz.addFunction(func.build())
+        file.addType(clazz.build())
+    }
+
     override fun process(
         elements: MutableSet<out TypeElement>,
         roundEnvironment: RoundEnvironment
     ): Boolean {
+        processingEnv.messager.printMessage(Diagnostic.Kind.WARNING, "$elements \r\n")
         val initClass = TypeSpec.classBuilder("Init")
         if (roundEnvironment.processingOver()) return true
 

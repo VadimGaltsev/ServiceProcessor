@@ -12,10 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ServiceHolder.getInstance().getService<DotaService>()!!.getDotaHeroes().enqueue(Callback)
-        ServiceHolder.getInstance().getService<DotaService>()!!.getDotaMatches().enqueue(Callback)
-        ServiceHolder.getInstance().getService<AnotherService>()!!.getDotaHeroes().enqueue(Callback)
-        ServiceHolder.getInstance().getService<AnotherService>()!!.getDotaMatches().enqueue(Callback)
+        ServiceHolder.getInstance().getService<DotaService2>()?.getDotaMatches()?.enqueue(Callback)
     }
 
     object Callback : okhttp3.Callback {
